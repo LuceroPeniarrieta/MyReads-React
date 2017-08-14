@@ -10,6 +10,19 @@ class BooksApp extends React.Component {
             books: []
   }
 
+  update = (book, value) => {
+
+    console.log('BOOK:' + book)
+    console.log('SHELF:' + value)
+    book.shelf = value
+
+    BooksAPI.update(book, value).then(res => {
+      this.setState(state => ({
+        books: state.books.filter(b => b.id !== book.id).concat([ book ])
+      }))
+    })
+  }
+
   componentDidMount() {
         BooksAPI.getAll().then((books) => {
             this.setState({ books })
@@ -41,6 +54,7 @@ class BooksApp extends React.Component {
                     <ol className="books-grid">
                         <ListBooks
                          books = {this.state.books.filter((book) => book.shelf == 'currentlyReading')}
+                         updateCategory = {this.update} 
                         /> 
                     </ol>
                   </div>
@@ -51,6 +65,7 @@ class BooksApp extends React.Component {
                     <ol className="books-grid">
                       <ListBooks
                        books = {this.state.books.filter((book) => book.shelf == 'wantToRead')}
+                       updateCategory = {this.update} 
                       /> 
                     </ol>
                   </div>
@@ -61,6 +76,7 @@ class BooksApp extends React.Component {
                     <ol className="books-grid">
                       <ListBooks
                        books = {this.state.books.filter((book) => book.shelf == 'read')}
+                       updateCategory = {this.update}                        
                       /> 
                     </ol>
                   </div>
