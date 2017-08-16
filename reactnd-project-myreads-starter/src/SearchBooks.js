@@ -13,7 +13,7 @@ class SearchBooks extends Component{
         book.shelf = value
 
         BooksAPI.update(book, value).then(res => {
-        //todo
+            this.props.history.push('/')
         })
     }
 
@@ -24,13 +24,13 @@ class SearchBooks extends Component{
     render() {
         const {books} = this.props;
         const {query} = this.state;
-
         let showBooks;
-        if(query){
+
+        if(query) {
             const match = new RegExp(regex(query), 'i')
             showBooks = books.filter((book) => match.test(book.title))
         }
-        else{
+        else {
             showBooks = books;
         }
 
@@ -43,16 +43,14 @@ class SearchBooks extends Component{
                     </Link>
             
                     <div className="search-books-input-wrapper">
-                        <input 
-                        type="text" 
-                        placeholder="Search by title or author"
+                        <input type="text" placeholder="Search by title or author"
                         value={this.state.query} onChange= {(event) => (this.updateQuery(event.target.value))}>
                         </input>
                     </div>
                 </div>
                 <ListBooks
                     books={showBooks}
-                    updateCategory = {this.update}
+                    updateCategory={this.update}
                 />
             </div>
         )
