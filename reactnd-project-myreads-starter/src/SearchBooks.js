@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import ListBooks from './ListBooks'
 import { Link } from 'react-router-dom'
-import * as BooksAPI from './BooksAPI'
 import regex from 'escape-string-regexp'
 
 class SearchBooks extends Component{
@@ -12,9 +11,8 @@ class SearchBooks extends Component{
     update = (book, value) => {
         book.shelf = value
 
-        BooksAPI.update(book, value).then(res => {
-            this.props.history.push('/')
-        })
+        this.props.updateCategory(book, value)
+        this.props.history.push('/')
     }
 
     updateQuery = (query) => {
@@ -35,7 +33,7 @@ class SearchBooks extends Component{
         }
 
         return (
-            <div className="search-books">
+            <div className="search-books"> 
                 <div className="search-books-bar">
                     
                     <Link to='/'>
@@ -44,7 +42,7 @@ class SearchBooks extends Component{
             
                     <div className="search-books-input-wrapper">
                         <input type="text" placeholder="Search by title or author"
-                        value={this.state.query} onChange= {(event) => (this.updateQuery(event.target.value))}>
+                        value={this.state.query} onChange={(event) => (this.updateQuery(event.target.value))}>
                         </input>
                     </div>
                 </div>

@@ -36,7 +36,7 @@ class BooksApp extends React.Component {
         this.setState({ books })
     })
 
-    BooksAPI.search(this.terms[0], 20).then((booksSearch) => {
+    BooksAPI.search(this.terms[2], 20).then((booksSearch) => {
         this.setState({ booksSearch })
     })
   }
@@ -47,8 +47,9 @@ class BooksApp extends React.Component {
       <div className="app">
         <Route exact path='/search' render={({ history }) => (
           <SearchBooks
-            books = {this.state.booksSearch} 
-            history = {history}
+            books={this.state.booksSearch} 
+            history={history}
+            updateCategory={this.update} 
           />
         )}/>
 
@@ -64,8 +65,8 @@ class BooksApp extends React.Component {
                 <div className="bookshelf-books">
                   <ol className="books-grid">
                       <ListBooks
-                        books = {this.state.books.filter((book) => book.shelf == 'currentlyReading')}
-                        updateCategory = {this.update} 
+                        books={this.state.books.filter((book) => book.shelf === 'currentlyReading')}
+                        updateCategory={this.update} 
                       /> 
                   </ol>
                 </div>
@@ -75,8 +76,8 @@ class BooksApp extends React.Component {
                 <div className="bookshelf-books">
                   <ol className="books-grid">
                     <ListBooks
-                      books = {this.state.books.filter((book) => book.shelf == 'wantToRead')}
-                      updateCategory = {this.update} 
+                      books={this.state.books.filter((book) => book.shelf === 'wantToRead')}
+                      updateCategory={this.update} 
                     /> 
                   </ol>
                 </div>
@@ -86,8 +87,8 @@ class BooksApp extends React.Component {
                 <div className="bookshelf-books">
                   <ol className="books-grid">
                     <ListBooks
-                      books = {this.state.books.filter((book) => book.shelf == 'read')}
-                      updateCategory = {this.update}                        
+                      books={this.state.books.filter((book) => book.shelf === 'read')}
+                      updateCategory={this.update}                        
                     /> 
                   </ol>
                 </div>
@@ -99,7 +100,6 @@ class BooksApp extends React.Component {
             </div>
           </div>
         )}/>
-      )}
     </div>
     )
   }
