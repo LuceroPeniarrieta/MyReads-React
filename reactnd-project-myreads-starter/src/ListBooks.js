@@ -1,7 +1,4 @@
 import React, { Component } from 'react'
-import serializeForm from 'form-serialize'
-import SearchBooks from './SearchBooks'
-
 class ListBooks extends Component{
 
     handleChange(book, shelf) {
@@ -13,7 +10,7 @@ class ListBooks extends Component{
 
         return(
             <div className='bookshelf-books' >
-                <ol className = 'books-grid'>
+                <ol className='books-grid'>
                 {books.map( book => (
                     <li key={book.id}>
                         <div className='book'>
@@ -26,7 +23,7 @@ class ListBooks extends Component{
                                 </div>
                                 <div className="book-shelf-changer"> 
 
-                                    <select value={book.shelf} selected onChange={event => this.handleChange(book, event.target.value)}>
+                                    <select onChange={event => this.handleChange(book, event.target.value)} value={book.shelf || 'none'}>
                                         <option value="none" disabled>Move to...</option>
                                         <option value="currentlyReading">Currently Reading</option>
                                         <option value="wantToRead">Want to Read</option>
