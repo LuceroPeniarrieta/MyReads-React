@@ -31,13 +31,15 @@ class BooksApp extends React.Component {
     })
   }
 
+  searchBooks = (criteria) => {
+    BooksAPI.search(criteria, 20).then((booksSearch) => {
+        this.setState({ booksSearch })
+    })
+  }
+
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
         this.setState({ books })
-    })
-
-    BooksAPI.search(this.terms[2], 20).then((booksSearch) => {
-        this.setState({ booksSearch })
     })
   }
 
@@ -49,7 +51,8 @@ class BooksApp extends React.Component {
           <SearchBooks
             books={this.state.booksSearch} 
             history={history}
-            updateCategory={this.update} 
+            updateCategory={this.update}
+            searchBooks={this.searchBooks}
           />
         )}/>
 

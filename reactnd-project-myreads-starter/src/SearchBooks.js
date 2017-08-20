@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import ListBooks from './ListBooks'
 import { Link } from 'react-router-dom'
-import regex from 'escape-string-regexp'
 
 class SearchBooks extends Component{
     state = {
@@ -24,11 +23,11 @@ class SearchBooks extends Component{
         const {query} = this.state;
         let showBooks;
 
-        if(query) {
-            const match = new RegExp(regex(query), 'i')
-            showBooks = books.filter((book) => match.test(book.title))
+        if(query){
+            this.props.searchBooks(query);
+            showBooks = books;
         }
-        else {
+        else{
             showBooks = books;
         }
 
