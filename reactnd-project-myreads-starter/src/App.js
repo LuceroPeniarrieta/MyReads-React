@@ -34,6 +34,8 @@ class BooksApp extends React.Component {
   searchBooks = (criteria) => {
     BooksAPI.search(criteria, 20).then((booksSearch) => {
         this.setState({ booksSearch })
+    }).catch((e) => {
+
     })
   }
 
